@@ -30,14 +30,6 @@ data <- searchTwitter("#baahubali2",n = 17000)
 positive.words <- scan("positive.txt",comment.char = ";", what = "character")
 negative.words <- scan("negative.txt",comment.char = ";", what = "character")
 
-# Getting the Text part of the tweets
-
-random_sample <- NULL;
-for(tweet in data)
-{
-        random_sample <-  paste(random_sample,tweet$getText());
-}
-
 # Convertion of List to a Data-Frame 
 data_df <- twListToDF(data)
 
@@ -90,10 +82,10 @@ data_df_selected <- separate(data_df_selected,New,c("Positive","Negative","Score
 data_df_selected <-  mutate(data_df_selected,Sentiment = ifelse(data_df_selected$Score > 0,
                                                                 'Positive', ifelse(data_df_selected$Score < 0,'Negative','Neutral')))
 #Saving it in the Local Directory !!
-write.xlsx(data_df_selected,"Twitter_Baahubali2.xlsx")
+write.xlsx(data_df_selected,"Twitter_Analysis.xlsx")
 
 #Converting Created Column into Data Format
-data_df_selected$created <- strftime(data_df_selected,"%Y-%m-%d")
+data_df_selected$created <- strftime(data_df_selected$created,"%Y-%m-%d")
 data_df_selected$created <- as.Date(data_df_selected$created)
 
 #Grouping them for visualization
